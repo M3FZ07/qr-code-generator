@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter PIN to Access</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; }
+    input { padding: 0.5em; margin: 1em; width: 200px; }
+    button { padding: 0.5em 1em; }
+  </style>
+</head>
+<body>
+  <h1>🔒 Enter PIN to Access Link</h1>
+  <p>This QR code is protected. Please enter the PIN to proceed:</p>
+  <input type="text" id="enteredPin" placeholder="Enter PIN">
+  <br>
+  <button onclick="verifyPin()">Unlock</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const targetURL = decodeURIComponent(params.get('url') || '');
+    const correctPIN = decodeURIComponent(params.get('pin') || '');
+
+    function verifyPin() {
+      const entered = document.getElementById('enteredPin').value.trim();
+      if (entered === correctPIN) {
+        window.location.href = targetURL;
+      } else {
+        alert('Incorrect PIN. Try again.');
+      }
+    }
+  </script>
+</body>
+</html>
