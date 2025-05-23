@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Free QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    input {
+      width: 300px;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+    button {
+      padding: 0.5em 1em;
+    }
+    canvas {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Free QR Code Generator</h1>
+  <p>Paste your URL below to generate a QR code:</p>
+  <input type="text" id="url" placeholder="https://example.com">
+  <br>
+  <button onclick="generateQRCode()">Generate QR Code</button>
+  <br>
+  <canvas id="qrcode"></canvas>
+
+  <script>
+    function generateQRCode() {
+      const url = document.getElementById('url').value.trim();
+      const canvas = document.getElementById('qrcode');
+      if (!url) {
+        alert('Please enter a valid URL.');
+        return;
+      }
+      QRCode.toCanvas(canvas, url, function (error) {
+        if (error) {
+          console.error(error);
+          alert('Failed to generate QR code.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
