@@ -2,45 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Free QR Code Generator</title>
+  <title>Free QR Code Generator with PIN</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 2em;
-    }
-    input {
-      width: 300px;
-      padding: 0.5em;
-      margin-bottom: 1em;
-    }
-    button {
-      padding: 0.5em 1em;
-      margin: 0.5em;
-    }
-    canvas {
-      margin-top: 1em;
-    }
-    #downloadBtn {
-      display: none; /* hidden initially */
-    }
+    body { font-family: sans-serif; text-align: center; padding: 2em; }
+    input { width: 300px; padding: 0.5em; margin-bottom: 1em; }
+    button { padding: 0.5em 1em; margin: 0.5em; }
+    canvas { margin-top: 1em; }
+    #downloadBtn { display: none; }
   </style>
 </head>
 <body>
-  <h1>Free QR Code Generator</h1>
-  <p>Paste your URL below to generate a QR code:</p>
-  <input type="text" id="url" placeholder="https://example.com">
-  <br>
-  <button onclick="generateQRCode()">Generate QR Code</button>
-  <br>
-  <canvas id="qrcode"></canvas>
-  <br>
+  <h1>QR Code Generator with Optional PIN</h1>
+  <p>Paste your URL and (optionally) set a PIN to restrict access:</p>
+  <input type="text" id="url" placeholder="https://example.com"><br>
+  <input type="text" id="pin" placeholder="Optional PIN (e.g., 1234)"><br>
+  <button onclick="generateQRCode()">Generate QR Code</button><br>
+  <canvas id="qrcode"></canvas><br>
   <button id="downloadBtn" onclick="downloadQRCode()">Download QR Code</button>
 
   <script>
     function generateQRCode() {
       const url = document.getElementById('url').value.trim();
+      const pin = document.getElementById('pin').value.trim();
       const canvas = document.getElementById('qrcode');
       const downloadBtn = document.getElementById('downloadBtn');
 
@@ -49,13 +33,18 @@
         return;
       }
 
-      QRCode.toCanvas(canvas, url, function (error) {
+      // Encode the original URL and PIN in query params
+      const encodedURL = encodeURIComponent(url);
+      const encodedPIN = encodeURIComponent(pin);
+      const redirectLink = `redirect.html?url=${encodedURL}&pin=${encodedPIN}`;
+
+      QRCode.toCanvas(canvas, redirectLink, function (error) {
         if (error) {
           console.error(error);
           alert('Failed to generate QR code.');
           downloadBtn.style.display = 'none';
         } else {
-          downloadBtn.style.display = 'inline-block'; // show download button
+          downloadBtn.style.display = 'inline-block';
         }
       });
     }
