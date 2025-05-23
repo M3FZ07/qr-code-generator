@@ -9,18 +9,17 @@
       box-sizing: border-box;
     }
     html, body {
-      height: 100%;
       margin: 0;
       padding: 0;
       font-family: sans-serif;
       background: #f9f9f9;
+      height: 100%;
     }
-    .wrapper {
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      padding: 1em;
+      min-height: 100vh;
     }
     .container {
       text-align: center;
@@ -30,6 +29,7 @@
       background: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border-radius: 8px;
+      margin: 1em;
     }
     h1 {
       font-size: 1.8em;
@@ -65,15 +65,13 @@
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="container">
-      <h1>🔒 Enter PIN to Access Link</h1>
-      <p>This QR code is protected. Please enter the PIN to proceed:</p>
+  <div class="container">
+    <h1>🔒 Enter PIN to Access Link</h1>
+    <p>This QR code is protected. Please enter the PIN to proceed:</p>
 
-      <input type="text" id="enteredPin" placeholder="Enter PIN" />
-      <br />
-      <button onclick="verifyPin()">Unlock</button>
-    </div>
+    <input type="text" id="enteredPin" placeholder="Enter PIN" />
+    <br />
+    <button onclick="verifyPin()">Unlock</button>
   </div>
 
   <script>
