@@ -17,9 +17,13 @@
     }
     button {
       padding: 0.5em 1em;
+      margin: 0.5em;
     }
     canvas {
       margin-top: 1em;
+    }
+    #downloadBtn {
+      display: none; /* hidden initially */
     }
   </style>
 </head>
@@ -31,21 +35,37 @@
   <button onclick="generateQRCode()">Generate QR Code</button>
   <br>
   <canvas id="qrcode"></canvas>
+  <br>
+  <button id="downloadBtn" onclick="downloadQRCode()">Download QR Code</button>
 
   <script>
     function generateQRCode() {
       const url = document.getElementById('url').value.trim();
       const canvas = document.getElementById('qrcode');
+      const downloadBtn = document.getElementById('downloadBtn');
+
       if (!url) {
         alert('Please enter a valid URL.');
         return;
       }
+
       QRCode.toCanvas(canvas, url, function (error) {
         if (error) {
           console.error(error);
           alert('Failed to generate QR code.');
+          downloadBtn.style.display = 'none';
+        } else {
+          downloadBtn.style.display = 'inline-block'; // show download button
         }
       });
+    }
+
+    function downloadQRCode() {
+      const canvas = document.getElementById('qrcode');
+      const link = document.createElement('a');
+      link.download = 'qr-code.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     }
   </script>
 </body>
