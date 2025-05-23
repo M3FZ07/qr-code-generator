@@ -36,7 +36,7 @@
       // Encode the original URL and PIN in query params
       const encodedURL = encodeURIComponent(url);
       const encodedPIN = encodeURIComponent(pin);
-      const redirectLink = `redirect.html?url=${encodedURL}&pin=${encodedPIN}`;
+      const redirectLink = `https://M3FZ07.github.io/qr-code-generator/redirect.html?url=${encodedURL}&pin=${encodedPIN}`;
 
       QRCode.toCanvas(canvas, redirectLink, function (error) {
         if (error) {
